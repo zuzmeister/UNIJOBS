@@ -4,11 +4,18 @@
 	Proof Of Concept
 ...für die Arbeit mit der "API" von Unijobs.at(siehe API)
 
+##Demo
+**Keine Garantie, auf zuverlässigkeit. Kann sein, dass es auch schon wieder down ist (Stand 2016-06-07).**
+
+Demoinstallation: http://public.tommachtalles.net/unijobs/
+
 ##Installation
-Einfach auf Webserver kopieren und loslegen, solange...
+Wenn man sowieso [XAMPP](https://www.apachefriends.org/download.html) installiert hat, einfach einen Ordner im **/PATHTOXAMPP/xamppfiles/htdocs** erstellen und Projektdateien hineinkopieren. Fertig.
+
+Ansonsten einfach auf Webserver kopieren und loslegen, solange...
 - php 5+
-- apache oä.
-...vorhanden
+- Apache oä.
+...vorhanden sind, sollte es laufen.
 
 **Unter Umständen muss die Datei .htaccess angepasst werden, damit alles korrekt läuft.**
 
