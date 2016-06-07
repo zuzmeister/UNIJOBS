@@ -5,7 +5,7 @@
 ...für die Arbeit mit der "API" von Unijobs.at(siehe API)
 
 ##Demo
-**Keine Garantie, auf zuverlässigkeit. Kann sein, dass es auch schon wieder down ist (Stand 2016-06-07).**
+**Keine Garantie, auf Zuverlässigkeit. Kann sein, dass es auch schon wieder down ist (Stand 2016-06-07).**
 
 Demoinstallation: http://public.tommachtalles.net/unijobs/
 
