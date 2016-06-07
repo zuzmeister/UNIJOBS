@@ -30,3 +30,4 @@ Was ganz nett wäre
 ##API
 - Inserate-Liste: http://www.unijobs.at/_ajax/job_suche.php
 - Einzelnes Inserat:	http://www.unijobs.at/_ajax/jobs_getjob.php?anzid=262777
+- JS: http://www.unijobs.at/javascripts/app.js
