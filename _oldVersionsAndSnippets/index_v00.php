@@ -1,5 +1,5 @@
 <?php
-require("load.php");
+require("../load.php");
 
 
 $ID = "262901";

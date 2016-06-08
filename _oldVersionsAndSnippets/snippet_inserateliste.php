@@ -1,25 +1,28 @@
 <?php
-require("../load.php");
+require("../load.php"); //Funktionen um Daten von einer URL zu laden.
 
-//testvariablen
-	//$ID = "262901";
-	//$ID = "262447";
+/** 
+KonfigurationsVariablen
+*/
 
-@$ID = $_GET["id"];
-if(!$ID)
-	$ID=262901;
+$ID=262901;
 $showPanelHeading=true;
 
-if(substr($ID, -5)=='dwnld'){
-	// We'll be outputting a html
-	header('Content-Type: text/html');
-	// It will be called downloaded.html
-	header('Content-Disposition: attachment; filename="unijobs-'.$ID.'.html"');
-	// The html source is in original.html
-	$showPanelHeading=false;
-}
+//testvariablen
+//$ID = "262901";
+//$ID = "262447";
 
-$contents = load("http://www.unijobs.at/_ajax/jobs_getjob.php?anzid=$ID");
+
+//lade Inserate-Verzeichnis
+$inserateVerzeichnis = load("http://www.unijobs.at/_ajax/job_suche.php");
+
+
+/**
+$domInserate = new domDocument;
+@$dom->loadHTML($inserateVerzeichnis);
+$domInserate->preserveWhiteSpace = false;
+ $inserat = $dom-> GETELEMENTBYCLASSNAME????????
+*/
 
 ////////code taken from...
 //// (http://www.binarytides.com/php-tutorial-parsing-html-with-domdocument/)
@@ -28,10 +31,11 @@ $contents = load("http://www.unijobs.at/_ajax/jobs_getjob.php?anzid=$ID");
 // a new dom object
 $dom = new domDocument;  
 // load the html into the object
-@$dom->loadHTML($contents); 
+@$dom->loadHTML($inserateVerzeichnis); 
 // discard white space
 $dom->preserveWhiteSpace = false;
 //get element by id
+/**
 $inserat = $dom->getElementById('standard_inserat');
 if(!$inserat)
 {
@@ -46,9 +50,13 @@ if(!$kontakt)
     //die("Element not found");
 
 }
-
+*/
 ///end
 
+/**
+Function: printAnzeige
+* 
+*/
 function printAnzeige($inserat)
 {
 	// zeige html-code der Anzeige, ohne div-tags und br-tag usw an...
@@ -66,6 +74,33 @@ function printAnzeige($inserat)
 	   }
 	}
 	//...ende
+}
+
+// filterElementsByClass
+// suche nach CLASS x in allen TAGS y und löche diese 
+function filterElementsByClass(&$dom, $tagName, $className) {
+	$domNodeList = $dom->getElementsByTagname('li'); 
+	$domElemsToRemove = array(); 
+	foreach ( $domNodeList as $domElement ) { 
+	  // ...do stuff with $domElement... 
+		if ($domElement->getAttribute('class') != "listing") {
+			$domElemsToRemove[] = $domElement; 
+		}
+	} 
+	foreach( $domElemsToRemove as $domElement ){ 
+	  $domElement->parentNode->removeChild($domElement); 
+	}
+}
+
+// Ändere href in <a> tags, um auf eigene Plattform zu verweisen
+function changeLinks(&$dom){
+	$domNodeList = $dom->getElementsByTagname('a'); 
+	foreach ( $domNodeList as $domElement ) { 
+	  // ...do stuff with $domElement... 
+		$domElement->setAttribute('onclick',' ');
+		// man könnte auch strtok benutzen...
+		$domElement->setAttribute('href','.'.strrchr($domElement->getAttribute('href'),'/'));
+	} 
 }
 
 ?>
@@ -112,10 +147,6 @@ function printAnzeige($inserat)
 				</h3>
 			</div>
 
-			<?php
-				if($showPanelHeading){
-			?>
-
 			<div class="panel-body">
 			<ul class="pager">
 				<li><a href="./<?php echo $ID-1; ?>">zurueck</a></li>
@@ -124,50 +155,34 @@ function printAnzeige($inserat)
 			</ul>
 			</div>
 
-			<?php
-			}
-			?>
-
 		</div>
 
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-8">
+				<!--
+					container content
+				--> 
+				<?php
+					// echo "<ul>";
+					// echo getElementsByClass($dom, "li","listing");
+					// echo "</ul>";
 
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							<h3 class="panel-title">Anzeige</h3>
-						</div>
-						<div class="panel-body anzeige">
-							<?php
-								try{
-									printAnzeige($inserat);
-								}catch(Exception $e)
-								{
-									echo $e->getMessage();
-								}
-							?>
-						</div>
-					</div>	
-				</div>
-				<div class="col-md-4">
-					<div class="panel panel-warning">
-						<div class="panel-heading">
-							<h3 class="panel-title">Kontakt</h3>
-						</div>
-						<div class="panel-body anzeige">
-							<?php
-								//echo strip_tags($kontakt->C14N(), '<p><a><strong><span><h1><h2><h3><ul><li>');
-								try{
-									printAnzeige($kontakt);
-								}catch(Exception $e)
-								{
-									echo $e->getMessage();
-								}
-							?>
-						</div>
-					</div>
-				</div>
+
+					// $domNodeList = $dom->getElementsByTagname('li'); 
+					// $domElemsToRemove = array(); 
+					// foreach ( $domNodeList as $domElement ) { 
+					//   // ...do stuff with $domElement... 
+					// 	if ($domElement->getAttribute('class') != "listing") {
+					// 		$domElemsToRemove[] = $domElement; 
+					// 	}
+					// } 
+					// foreach( $domElemsToRemove as $domElement ){ 
+					//   $domElement->parentNode->removeChild($domElement); 
+					// }
+					filterElementsByClass($dom,"li","listing");
+					changeLinks($dom);
+					echo printAnzeige($dom);
+				?>
 			</div>
 		</div>
 
