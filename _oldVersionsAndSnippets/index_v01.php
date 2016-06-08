@@ -19,7 +19,6 @@ if(substr($ID, -5)=='dwnld'){
 	$showPanelHeading=false;
 }
 
-$inserateVerzeichnis = load("http://www.unijobs.at/_ajax/job_suche.php");
 $contents = load("http://www.unijobs.at/_ajax/jobs_getjob.php?anzid=$ID");
 
 ////////code taken from...
@@ -27,14 +26,11 @@ $contents = load("http://www.unijobs.at/_ajax/jobs_getjob.php?anzid=$ID");
 ///begin
 
 // a new dom object
-$dom = new domDocument;
-$liste = new domDocument;  
+$dom = new domDocument;  
 // load the html into the object
 @$dom->loadHTML($contents); 
-@$liste->loadHTML($inserateVerzeichnis);
 // discard white space
 $dom->preserveWhiteSpace = false;
-$liste->preserveWhiteSpace = false;
 //get element by id
 $inserat = $dom->getElementById('standard_inserat');
 if(!$inserat)
@@ -53,9 +49,6 @@ if(!$kontakt)
 
 ///end
 
-/**
-	printAnzeige
-*/
 function printAnzeige($inserat)
 {
 	// zeige html-code der Anzeige, ohne div-tags und br-tag usw an...
@@ -73,38 +66,6 @@ function printAnzeige($inserat)
 	   }
 	}
 	//...ende
-}
-
-/**
-	filterElementsByClass
-	suche nach CLASS x in allen TAGS y und löche diese 
-*/
-function filterElementsByClass(&$dom, $tagName, $className) {
-	$domNodeList = $dom->getElementsByTagname('li'); 
-	$domElemsToRemove = array(); 
-	foreach ( $domNodeList as $domElement ) { 
-	  // ...do stuff with $domElement... 
-		if ($domElement->getAttribute('class') != "listing") {
-			$domElemsToRemove[] = $domElement; 
-		}
-	} 
-	foreach( $domElemsToRemove as $domElement ){ 
-	  $domElement->parentNode->removeChild($domElement); 
-	}
-}
-
-/** 
-	changeLinks
-	Ändere href in <a> tags, um auf eigene Plattform zu verweisen
-*/
-function changeLinks(&$dom){
-	$domNodeList = $dom->getElementsByTagname('a'); 
-	foreach ( $domNodeList as $domElement ) { 
-	  // ...do stuff with $domElement... 
-		$domElement->setAttribute('onclick',' ');
-		// man könnte auch strtok benutzen...
-		$domElement->setAttribute('href','.'.strrchr($domElement->getAttribute('href'),'/'));
-	} 
 }
 
 ?>
@@ -161,17 +122,6 @@ function changeLinks(&$dom){
 				<li><a href="./<?php echo $ID.'dwnld' ?>">DOWNLOAD</a></li>
 				<li><a href="./<?php echo $ID+1; ?>">vor</a></li>
 			</ul>
-			<a class="btn btn-primary btn-lg btn-block" data-complete-text="finished!" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-				Liste aller Inserate
-				<span class="caret"></span>
-			</a>
-			<div class="collapse inserateliste" id="collapseExample">
-				<?php
-					filterElementsByClass($liste,"li","listing");
-					changeLinks($liste);
-					echo printAnzeige($liste);
-				?>
-			</div>
 			</div>
 
 			<?php
