@@ -103,6 +103,14 @@ function changeLinks(&$dom){
 	} 
 }
 
+function getAllInserateIds(&$dom){
+	$domNodeList = $dom->getElementsByTagname('a'); 
+	foreach ( $domNodeList as $domElement ) { 
+		echo substr(strrchr($domElement->getAttribute('href'),'/'), 1);
+		echo "<br>";
+	}
+}
+
 ?>
 
 
@@ -113,82 +121,11 @@ function changeLinks(&$dom){
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>UNIJOBS API</title>
-
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
-			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
-		<style type="text/css">
-		.anzeige a{
-			display: block;
-		}
-		h1,li,span,a{
-			word-break: break-word;
-		}
-		img{
-			max-width: 100%;
-			height: auto;
-		}
-		</style>
 	</head>
 	<body>
-
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">
-					Better Unijobs (ID = 
-					<?php echo $ID; ?>
-					)
-				</h3>
-			</div>
-
-			<div class="panel-body">
-			<ul class="pager">
-				<li><a href="./<?php echo $ID-1; ?>">zurueck</a></li>
-				<li><a href="./<?php echo $ID.'dwnld' ?>">DOWNLOAD</a></li>
-				<li><a href="./<?php echo $ID+1; ?>">vor</a></li>
-			</ul>
-			</div>
-
-		</div>
-
-		<div class="container-fluid">
-			<div class="row">
-				<!--
-					container content
-				--> 
-				<?php
-					// echo "<ul>";
-					// echo getElementsByClass($dom, "li","listing");
-					// echo "</ul>";
-
-
-					// $domNodeList = $dom->getElementsByTagname('li'); 
-					// $domElemsToRemove = array(); 
-					// foreach ( $domNodeList as $domElement ) { 
-					//   // ...do stuff with $domElement... 
-					// 	if ($domElement->getAttribute('class') != "listing") {
-					// 		$domElemsToRemove[] = $domElement; 
-					// 	}
-					// } 
-					// foreach( $domElemsToRemove as $domElement ){ 
-					//   $domElement->parentNode->removeChild($domElement); 
-					// }
-					filterElementsByClass($dom,"li","listing");
-					changeLinks($dom);
-					echo printAnzeige($dom);
-				?>
-			</div>
-		</div>
-
-		<!-- jQuery -->
-		<script src="//code.jquery.com/jquery.js"></script>
-		<!-- Bootstrap JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<?php
+			filterElementsByClass($dom,"li","listing");
+			getAllInserateIds($dom);
+		?>
 	</body>
 </html>

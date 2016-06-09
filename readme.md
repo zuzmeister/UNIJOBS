@@ -17,10 +17,14 @@ Ansonsten einfach auf Webserver kopieren und loslegen, solange...
 - Apache oä.
 ...vorhanden sind, sollte es laufen.
 
-**Unter Umständen muss die Datei .htaccess angepasst werden, damit alles korrekt läuft.**
-
+**Unter Umständen muss die Datei .htaccess angepasst werden, damit alles korrekt läuft ([zum Beispiel unter 1und1.de](https://hilfe-center.1und1.de/hosting/1und1-hosting-c10085285/skript--und-programmiersprachen-c10082634/htaccess-c10083883/hinweise-zur-erstellung-von-rewrite-rules-a10792317.html)).**
 ##Was noch fehlt:
-- Anzeigen der Liste aller Inserate
+- **done** <s>Anzeigen der Liste aller Inserate</s>
+- Anzeigen der original Quelle (zb. http://unijobs.at/name-des-jobs/6666)
+- bei download (dwnld), im header statt "Better Unijobs (ID = 12345dwnld)" --> "Better Unijobs (ID = 12345)"
+- bei download --> kein bootstrap per cdn einbinden
+- Anzeigen des Erstellungsdatums des Inserates ("TopJobs" haben kein Datum, aber man sieht anhand der laufenden Nummer, in welchem Zeitraum sie angelegt wurden)
+- PDF erzeugen (muss auf eine A4 Seite passen)
 - Automatisches Parsen und Speichern aller Inserate in einer eigenen Datenbank (cronjob?), um nicht von dem engen Zeitfenster auf Unijobs abhängig zu sein.
 - Durchsuchbarkeit der Inserate
 - Unerwünschte Tags besser herausfiltern, besonders bei "TopJobs" (\<style\>, \<br\>\<br\>\<br\> )
@@ -29,5 +33,7 @@ Was ganz nett wäre
 
 ##API
 - Inserate-Liste: http://www.unijobs.at/_ajax/job_suche.php
+- Eingabefeld für Inserate-ID
+- Suchfeld?
 - Einzelnes Inserat:	http://www.unijobs.at/_ajax/jobs_getjob.php?anzid=262777
 - JS: http://www.unijobs.at/javascripts/app.js

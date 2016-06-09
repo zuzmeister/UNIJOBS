@@ -1,40 +1,42 @@
 <?php
 require("load.php");
 
-//testvariablen
-	//$ID = "262901";
-	//$ID = "262447";
+$showPanelHeading=true;
+
+/// inserateliste laden -beginn
+$inserateVerzeichnis = load("http://www.unijobs.at/_ajax/job_suche.php");
+$liste = new domDocument;  
+@$liste->loadHTML($inserateVerzeichnis);
+$liste->preserveWhiteSpace = false;
+/// -end
 
 @$ID = $_GET["id"];
 if(!$ID)
-	$ID=262901;
-$showPanelHeading=true;
-
+	if ($temp = getAllInserateIds($liste))
+		$ID = $temp[0];
+	else
+		$ID = 0;
+	
 if(substr($ID, -5)=='dwnld'){
 	// We'll be outputting a html
 	header('Content-Type: text/html');
 	// It will be called downloaded.html
-	header('Content-Disposition: attachment; filename="unijobs-'.$ID.'.html"');
+	header('Content-Disposition: attachment; filename="unijobs-'.substr($ID,0,-5).'.html"');
 	// The html source is in original.html
 	$showPanelHeading=false;
 }
 
-$inserateVerzeichnis = load("http://www.unijobs.at/_ajax/job_suche.php");
 $contents = load("http://www.unijobs.at/_ajax/jobs_getjob.php?anzid=$ID");
 
 ////////code taken from...
 //// (http://www.binarytides.com/php-tutorial-parsing-html-with-domdocument/)
 ///begin
-
 // a new dom object
 $dom = new domDocument;
-$liste = new domDocument;  
 // load the html into the object
 @$dom->loadHTML($contents); 
-@$liste->loadHTML($inserateVerzeichnis);
 // discard white space
 $dom->preserveWhiteSpace = false;
-$liste->preserveWhiteSpace = false;
 //get element by id
 $inserat = $dom->getElementById('standard_inserat');
 if(!$inserat)
@@ -42,15 +44,12 @@ if(!$inserat)
     //die("Element not found");
     $inserat = $dom->getElementById('anzeige');
 }
-
 $kontakt = $dom->getElementById('legende');
 
 if(!$kontakt)
 {
     //die("Element not found");
-
 }
-
 ///end
 
 /**
@@ -107,6 +106,20 @@ function changeLinks(&$dom){
 	} 
 }
 
+// function getLatestInserat(){
+// 	if($array[0])
+// 		return $
+// }
+
+function getAllInserateIds(&$dom){
+	$domNodeList = $dom->getElementsByTagname('a'); 
+	$array = [];
+	foreach ( $domNodeList as $domElement ) { 
+		$array[]= substr(strrchr($domElement->getAttribute('href'),'/'), 1);
+	}
+	return $array;
+}
+
 ?>
 
 
@@ -131,12 +144,31 @@ function changeLinks(&$dom){
 		.anzeige a{
 			display: block;
 		}
+
+		.inserateliste li{
+			display: block;
+			margin-top: 1em;
+			padding-right: 1em;
+    		padding-bottom: 1em;
+		    list-style-type: none;
+		    font-size: 1.5em;
+		    border-bottom-color: black;
+		    border-style: none none solid none;
+		}
+
+		.inserateliste span{
+			margin-right: 1em;
+		}
+		
 		h1{
 			word-wrap: break-word;
 		}
 		img{
 			max-width: 100%;
 			height: auto;
+		}
+		h1,li,span,a{
+			word-break: break-word;
 		}
 		</style>
 	</head>
@@ -157,9 +189,9 @@ function changeLinks(&$dom){
 
 			<div class="panel-body">
 			<ul class="pager">
-				<li><a href="./<?php echo $ID-1; ?>">zurueck</a></li>
-				<li><a href="./<?php echo $ID.'dwnld' ?>">DOWNLOAD</a></li>
-				<li><a href="./<?php echo $ID+1; ?>">vor</a></li>
+				<li><a href="./<?php echo $ID-1; ?>"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a></li>
+				<li><a href="./<?php echo $ID.'dwnld' ?>">Download&nbsp;<span class="glyphicon glyphicon-download" aria-hidden="true"></a></li>
+				<li><a href="./<?php echo $ID+1; ?>"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></span></a></li>
 			</ul>
 			<a class="btn btn-primary btn-lg btn-block" data-complete-text="finished!" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 				Liste aller Inserate
