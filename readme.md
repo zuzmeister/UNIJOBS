@@ -23,6 +23,8 @@ Ansonsten einfach auf Webserver kopieren und loslegen, solange...
 - Anzeigen der original Quelle (zb. http://unijobs.at/name-des-jobs/6666)
 - bei download (dwnld), im header statt "Better Unijobs (ID = 12345dwnld)" --> "Better Unijobs (ID = 12345)"
 - bei download --> kein bootstrap per cdn einbinden
+- Eingabefeld für Inserate-ID
+- Suchfeld?
 - Anzeigen des Erstellungsdatums des Inserates ("TopJobs" haben kein Datum, aber man sieht anhand der laufenden Nummer, in welchem Zeitraum sie angelegt wurden)
 - PDF erzeugen (muss auf eine A4 Seite passen)
 - Automatisches Parsen und Speichern aller Inserate in einer eigenen Datenbank (cronjob?), um nicht von dem engen Zeitfenster auf Unijobs abhängig zu sein.
@@ -33,7 +35,5 @@ Was ganz nett wäre
 
 ##API
 - Inserate-Liste: http://www.unijobs.at/_ajax/job_suche.php
-- Eingabefeld für Inserate-ID
-- Suchfeld?
 - Einzelnes Inserat:	http://www.unijobs.at/_ajax/jobs_getjob.php?anzid=262777
 - JS: http://www.unijobs.at/javascripts/app.js
