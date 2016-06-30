@@ -132,7 +132,7 @@ function getAllInserateIds(&$dom){
 		<title>UNIJOBS API</title>
 
 		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link media="screen" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -140,36 +140,51 @@ function getAllInserateIds(&$dom){
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		<style type="text/css">
-		.anzeige a{
-			display: block;
-		}
+		<style type="text/css" media="print">
+			body{
+				font-size: 10pt;
+				font-family: Arial;
+			}
+			.print-not{
+				display: none;
+			}
+			br+br {
+			    display: none;
+			}
+		</style>
+		<style media="screen" type="text/css">
+			br+br {
+			    display: none;
+			}
+			.anzeige a{
+				display: block;
+			}
 
-		.inserateliste li{
-			display: block;
-			margin-top: 1em;
-			padding-right: 1em;
-    		padding-bottom: 1em;
-		    list-style-type: none;
-		    font-size: 1.5em;
-		    border-bottom-color: black;
-		    border-style: none none solid none;
-		}
+			.inserateliste li{
+				display: block;
+				margin-top: 1em;
+				padding-right: 1em;
+	    		padding-bottom: 1em;
+			    list-style-type: none;
+			    font-size: 1.5em;
+			    border-bottom-color: black;
+			    border-style: none none solid none;
+			}
 
-		.inserateliste span{
-			margin-right: 1em;
-		}
-		
-		h1{
-			word-wrap: break-word;
-		}
-		img{
-			max-width: 100%;
-			height: auto;
-		}
-		h1,li,span,a{
-			word-break: break-word;
-		}
+			.inserateliste span{
+				margin-right: 1em;
+			}
+			
+			h1{
+				word-wrap: break-word;
+			}
+			img{
+				max-width: 100%;
+				height: auto;
+			}
+			h1,li,span,a{
+				word-break: break-word;
+			}
 		</style>
 	</head>
 	<body>
@@ -187,7 +202,7 @@ function getAllInserateIds(&$dom){
 				if($showPanelHeading){
 			?>
 
-			<div class="panel-body">
+			<div class="panel-body print-not">
 			<ul class="pager">
 				<li><a href="./<?php echo $ID-1; ?>"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a></li>
 				<li><a href="./<?php echo $ID.'dwnld' ?>">Download&nbsp;<span class="glyphicon glyphicon-download" aria-hidden="true"></a></li>

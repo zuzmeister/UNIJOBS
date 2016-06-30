@@ -20,6 +20,7 @@ Ansonsten einfach auf Webserver kopieren und loslegen, solange...
 **Unter Umständen muss die Datei .htaccess angepasst werden, damit alles korrekt läuft ([zum Beispiel unter 1und1.de](https://hilfe-center.1und1.de/hosting/1und1-hosting-c10085285/skript--und-programmiersprachen-c10082634/htaccess-c10083883/hinweise-zur-erstellung-von-rewrite-rules-a10792317.html)).**
 ##Was noch fehlt:
 - **done** <s>Anzeigen der Liste aller Inserate</s>
+- Markieren in der Datenbank, ob gelesen, ob interessant --> zeige nur neue, unbewertete Inserate
 - Anzeigen der original Quelle (zb. http://unijobs.at/name-des-jobs/6666)
 - bei download (dwnld), im header statt "Better Unijobs (ID = 12345dwnld)" --> "Better Unijobs (ID = 12345)"
 - bei download --> kein bootstrap per cdn einbinden
